@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react';
+import SkeletonProfile from '../skeletons/SkeletonProfile';
 
 const User = () => {
   const [profile, setProfile] = useState(null);
@@ -7,15 +8,14 @@ const User = () => {
       const res = await fetch('https://jsonplaceholder.typicode.com/users/1');
       const data = await res.json();
       setProfile(data);
-    }, 1000);
+    }, 5000);
   }, []);
 
   return (
     <div className="user">
       <h2>User Details</h2>
-      {!profile ? (
-        <div>Loading...</div>
-      ) : (
+      {!profile && <SkeletonProfile />}
+      {profile && (
         <div className="profile">
           <h3>{profile.username}</h3>
           <p>{profile.email}</p>

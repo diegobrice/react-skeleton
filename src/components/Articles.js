@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import SkeletonElement from '../skeletons/SkeletonElement';
+import SkeletonArticle from '../skeletons/SkeletonArticle';
 
 const Articles = () => {
   const [articles, setArticles] = useState(null);
@@ -10,19 +10,13 @@ const Articles = () => {
       data.length = 10;
       console.log(data);
       setArticles(data);
-    }, 1000);
+    }, 5000);
   }, []);
   return (
     <div className="articles">
       <h2>Articles</h2>
-      {!articles ? (
-        <>
-          <SkeletonElement type="title"/>
-          <SkeletonElement type="text"/>
-          <SkeletonElement type="text"/>
-          <SkeletonElement type="text"/>
-        </>
-      ) : (
+      {!articles && [1, 2, 3, 4, 5, 6, 7, 8, 9, 10].map((n) => <SkeletonArticle />)}
+      {articles &&
         articles.map((article) => {
           return (
             <div key={article.id} className="article">
@@ -30,8 +24,7 @@ const Articles = () => {
               <p>{article.body}</p>
             </div>
           );
-        })
-      )}
+        })}
     </div>
   );
 };
